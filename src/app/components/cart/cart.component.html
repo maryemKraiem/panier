@@ -1,0 +1,42 @@
+<div class="cart-container">
+    <div *ngIf="cartStore.isEmpty()" class="empty-cart">
+      <p>Votre panier est vide</p>
+    </div>
+  
+    <ng-container *ngIf="!cartStore.isEmpty()">
+      <ul class="cart-items">
+        <li *ngFor="let item of cartStore.items(); let i = index" class="cart-item">
+          <div class="item-details"> 
+            <div class="item-info">
+              <h4>{{ item.product.name }}</h4>
+              <p class="item-price">{{ item.product.price | currency:'EUR' }}</p>
+            </div>
+          </div>
+          <div class="item-actions">
+            <div class="quantity-control">
+              <button (click)="updateQuantity(i, item.quantity - 1)" class="qty-btn">-</button>
+              <input 
+                type="number" 
+                [ngModel]="item.quantity" 
+                min="1" 
+                (ngModelChange)="updateQuantity(i, $event)" 
+                class="qty-input">
+              <button (click)="updateQuantity(i, item.quantity + 1)" class="qty-btn">+</button>
+            </div>
+            <button (click)="removeItem(i)" class="remove-btn">
+              <span class="remove-icon">×</span>
+            </button>
+          </div>
+        </li>
+      </ul>
+  
+      <div class="cart-summary">
+        <div class="cart-total">
+          <span>Total:</span>
+          <span class="total-amount">{{ cartStore.totalAmount() | currency:'EUR' }}</span>
+        </div>
+        <button (click)="clearCart()" class="clear-cart-btn">Vider le panier</button>
+        <button class="checkout-btn">Commander</button>
+      </div>
+    </ng-container>
+  </div>

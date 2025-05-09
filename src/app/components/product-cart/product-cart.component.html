@@ -1,0 +1,10 @@
+<div class="product-card"> 
+    <div class="product-info">
+      <h3 class="product-name">{{ product.name }}</h3>
+      <p class="product-description">{{ product.description }}</p>
+      <p class="product-price">{{ product.price | currency:'EUR' }}</p>
+      <button (click)="onAddToCart()" class="add-to-cart-btn">
+        Ajouter au panier
+      </button>
+    </div>
+  </div>
